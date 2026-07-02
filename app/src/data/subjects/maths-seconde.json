@@ -1,0 +1,54 @@
+{
+  "id": "maths",
+  "nom": "Mathématiques",
+  "ordre": 1,
+  "modules": [
+    {
+      "id": "maths-2nde-01",
+      "titre": "Les fractions",
+      "niveau": "Seconde",
+      "ordre": 1,
+      "cours": "Une fraction a/b représente le quotient de a par b (avec b différent de 0). Deux fractions sont égales si elles représentent le même nombre, même si leurs écritures diffèrent : 1/2 = 2/4 = 3/6.\n\nPour additionner deux fractions, il faut d'abord les mettre au même dénominateur. Exemple : 1/3 + 1/6 = 2/6 + 1/6 = 3/6 = 1/2.\n\nPour multiplier deux fractions, on multiplie les numérateurs entre eux et les dénominateurs entre eux : (a/b) x (c/d) = (a x c)/(b x d).",
+      "quiz": [
+        {
+          "id": "maths-2nde-01-q1",
+          "question": "Simplifie la fraction 6/8.",
+          "type": "numerique",
+          "reponses_acceptees": ["3/4"],
+          "indice": "Cherche le plus grand nombre qui divise à la fois 6 et 8."
+        },
+        {
+          "id": "maths-2nde-01-q2",
+          "question": "Calcule : 1/4 + 1/2",
+          "type": "choix",
+          "choix": ["1/6", "2/6", "3/4", "1/8"],
+          "reponses_acceptees": ["3/4"],
+          "indice": "Mets les deux fractions au même dénominateur (4) avant d'additionner."
+        }
+      ]
+    },
+    {
+      "id": "maths-2nde-02",
+      "titre": "Équations du premier degré",
+      "niveau": "Seconde",
+      "ordre": 2,
+      "cours": "Une équation du premier degré à une inconnue s'écrit sous la forme ax + b = c, avec a différent de 0.\n\nPour la résoudre, on isole x en effectuant la même opération des deux côtés de l'égalité.\n\nExemple : 2x + 3 = 11\n2x = 11 - 3 = 8\nx = 8 / 2 = 4",
+      "quiz": [
+        {
+          "id": "maths-2nde-02-q1",
+          "question": "Résous : 3x - 5 = 10. Quelle est la valeur de x ?",
+          "type": "numerique",
+          "reponses_acceptees": ["5"],
+          "indice": "Ajoute 5 des deux côtés, puis divise par 3."
+        },
+        {
+          "id": "maths-2nde-02-q2",
+          "question": "Résous : x + 7 = 2. Quelle est la valeur de x ?",
+          "type": "numerique",
+          "reponses_acceptees": ["-5"],
+          "indice": "Soustrais 7 des deux côtés."
+        }
+      ]
+    }
+  ]
+}
