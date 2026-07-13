@@ -28,13 +28,19 @@ Pour brancher un vrai backend Supabase (comptes email/mot de passe, progression 
 ```
 src/
   context/     AuthContext (session), ProgressContext (progression élève)
-  data/        contenu des matières converti en JSON (un fichier par matière/niveau)
+  data/        structure.js (niveaux + matières officielles) et subjects/ (contenu JSON)
   lib/         client Supabase, accès progression avec repli local
-  navigation/  navigateur (Login -> Home -> Subject -> Module)
+  navigation/  navigateur (Login -> Home [niveaux] -> Level [matières] -> Subject [modules] -> Module)
   screens/     écrans de l'appli
 ```
 
-## Ajouter une nouvelle matière/niveau
+La structure complète des 4 niveaux (Troisième, Seconde, Première, Terminale) et de
+leurs matières est définie dans `src/data/structure.js`. Toute matière sans contenu
+converti affiche automatiquement un module "Contenu à venir".
+
+## Ajouter du contenu à une matière
 
 1. Créer un fichier JSON dans `src/data/subjects/` en suivant le format de `maths-seconde.json`
-2. L'importer et l'ajouter au tableau `subjectFiles` dans `src/data/subjects/index.js`
+2. L'importer dans `src/data/subjects/index.js` et ajouter ses modules dans `realModules`
+   sous la clé `"niveau:matière"` (ex: `'seconde:physique-chimie'`) — les identifiants
+   sont ceux de `src/data/structure.js`

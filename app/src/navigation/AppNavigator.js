@@ -5,6 +5,7 @@ import { useAuth } from '../context/AuthContext';
 import { ProgressProvider } from '../context/ProgressContext';
 import LoginScreen from '../screens/LoginScreen';
 import HomeScreen from '../screens/HomeScreen';
+import LevelScreen from '../screens/LevelScreen';
 import SubjectScreen from '../screens/SubjectScreen';
 import ModuleScreen from '../screens/ModuleScreen';
 
@@ -30,6 +31,7 @@ export default function AppNavigator() {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Level" component={LevelScreen} options={{ title: '' }} />
           <Stack.Screen name="Subject" component={SubjectScreen} options={{ title: '' }} />
           <Stack.Screen name="Module" component={ModuleScreen} options={{ title: '' }} />
         </Stack.Navigator>

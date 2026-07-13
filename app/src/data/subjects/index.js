@@ -1,32 +1,54 @@
+import { LEVELS } from '../structure';
 import mathsSeconde from './maths-seconde.json';
 
-// Ajouter ici chaque nouveau fichier matière/niveau au fur et à mesure de la conversion du contenu.
-const subjectFiles = [mathsSeconde];
+// Contenu réel déjà converti en JSON, indexé par "niveau:matière".
+// Ajouter une entrée ici pour chaque fichier converti depuis le contenu HTML
+// existant. Emplacements prévus pour le contenu déjà prêt côté auteur :
+//   'seconde:physique-chimie'      Physique-Chimie Seconde (6 modules)
+//   'seconde:snt'                  SNT Seconde (7 thèmes)
+//   'premiere:francais'            Français Première (méthodologie, œuvres)
+//   'premiere:spe-maths'           Maths spécialité Première (9 modules)
+//   'premiere:spe-physique-chimie' Physique-Chimie spécialité Première (4 modules)
+//   'premiere:spe-nsi'             NSI spécialité Première (6 modules)
+const realModules = {
+  'seconde:maths': mathsSeconde.modules,
+};
 
-function buildSubjects(files) {
-  const bySubject = new Map();
-  for (const file of files) {
-    const existing = bySubject.get(file.id);
-    if (existing) {
-      existing.modules.push(...file.modules);
-    } else {
-      bySubject.set(file.id, { id: file.id, nom: file.nom, ordre: file.ordre, modules: [...file.modules] });
-    }
-  }
-  return Array.from(bySubject.values())
-    .sort((a, b) => a.ordre - b.ordre)
-    .map((subject) => ({
+function placeholderModule(level, subject) {
+  return {
+    id: `${level.id}-${subject.id}-a-venir`,
+    titre: 'Contenu à venir',
+    niveau: level.nom,
+    ordre: 1,
+    placeholder: true,
+    cours: '',
+    quiz: [],
+  };
+}
+
+export const levels = LEVELS.map((level) => ({
+  ...level,
+  subjects: level.subjects.map((subject, index) => {
+    const modules = realModules[`${level.id}:${subject.id}`];
+    return {
       ...subject,
-      modules: [...subject.modules].sort((a, b) => a.ordre - b.ordre),
-    }));
+      ordre: index + 1,
+      hasContent: Boolean(modules),
+      modules: modules
+        ? [...modules].sort((a, b) => a.ordre - b.ordre)
+        : [placeholderModule(level, subject)],
+    };
+  }),
+}));
+
+export function getLevel(levelId) {
+  return levels.find((level) => level.id === levelId);
 }
 
-export const subjects = buildSubjects(subjectFiles);
-
-export function getSubject(subjectId) {
-  return subjects.find((subject) => subject.id === subjectId);
+export function getSubject(levelId, subjectId) {
+  return getLevel(levelId)?.subjects.find((subject) => subject.id === subjectId);
 }
 
-export function getModule(subjectId, moduleId) {
-  return getSubject(subjectId)?.modules.find((mod) => mod.id === moduleId);
+export function getModule(levelId, subjectId, moduleId) {
+  return getSubject(levelId, subjectId)?.modules.find((mod) => mod.id === moduleId);
 }

@@ -10,8 +10,8 @@ function normalize(value) {
 }
 
 export default function ModuleScreen({ route }) {
-  const { subjectId, moduleId } = route.params;
-  const mod = getModule(subjectId, moduleId);
+  const { levelId, subjectId, moduleId } = route.params;
+  const mod = getModule(levelId, subjectId, moduleId);
   const { user } = useAuth();
   const { statuses, updateModuleStatus } = useProgress();
 
@@ -22,11 +22,22 @@ export default function ModuleScreen({ route }) {
   const [finished, setFinished] = useState(statuses[moduleId] === 'termine');
 
   useEffect(() => {
-    if ((statuses[moduleId] ?? 'a_faire') === 'a_faire') {
+    if (!mod.placeholder && (statuses[moduleId] ?? 'a_faire') === 'a_faire') {
       updateModuleStatus(moduleId, 'en_cours');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  if (mod.placeholder) {
+    return (
+      <ScrollView style={styles.container} contentContainerStyle={styles.content}>
+        <Text style={styles.title}>Contenu à venir</Text>
+        <Text style={styles.cours}>
+          Les cours et quiz de cette matière sont en préparation. Reviens bientôt !
+        </Text>
+      </ScrollView>
+    );
+  }
 
   const question = mod.quiz[questionIndex];
   const isLastQuestion = questionIndex === mod.quiz.length - 1;
